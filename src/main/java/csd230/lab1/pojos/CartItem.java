@@ -3,10 +3,6 @@ package csd230.lab1.pojos;
 import java.io.Serializable;
 import java.util.Objects;
 
-
-/**
- * DTO for {@link csd230.lab1.entities.old.CartItem}
- */
 public abstract class CartItem implements Serializable, SaleableItem {
     private double price;
     private int quantity;

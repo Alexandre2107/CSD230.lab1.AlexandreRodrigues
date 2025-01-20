@@ -4,10 +4,6 @@
  */
 package csd230.lab1.pojos;
 
-/**
- *
- * @author fcarella
- */
 public interface SaleableItem {
 
     public void sellItem();

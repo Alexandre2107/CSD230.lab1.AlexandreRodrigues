@@ -1,10 +1,5 @@
 package csd230.lab1.pojos;
-/**
- * DTO for {@link csd230.lab1.entities.old.Book}
- */
-/**
- * DTO for {@link csd230.lab1.entities.old.Book}
- */
+
 public class Book extends Publication {
     private String author;
     private String ISBN;

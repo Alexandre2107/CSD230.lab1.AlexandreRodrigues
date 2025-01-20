@@ -2,10 +2,6 @@ package csd230.lab1.pojos;
 
 import java.util.List;
 import java.util.Objects;
-
-/**
- * DTO for {@link csd230.lab1.entities.old.Cart}
- */
 public class Cart {
     private List<CartItem> items;
 

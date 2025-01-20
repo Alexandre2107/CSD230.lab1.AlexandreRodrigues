@@ -3,9 +3,6 @@ package csd230.lab1.pojos;
 import java.util.Date;
 import java.util.Objects;
 
-/**
- * DTO for {@link csd230.lab1.entities.old.Magazine}
- */
 public class Magazine extends Publication {
 
     private int orderQty;
