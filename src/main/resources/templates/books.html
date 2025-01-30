@@ -28,10 +28,9 @@
 
 <main>
     <h2>Books</h2>
-    <button type="button" th:onclick="showName(nameJs);">Show Name</button>
+    <button type="button" th:onclick="showName(nameJs)">Show Name</button>
     <p><a href="#" th:href="@{/books/add-book}">Add new book</a></p>
     <div class="product-list">
-        <!-- Loop through the products -->
         <form th:action="@{/cart/add-cart}" method="post">
             <table border="1" cellpadding="5" cellspacing="0">
                 <tr>
@@ -42,6 +41,7 @@
                     <th>Description</th>
                     <th>Edit</th>
                     <th>Select</th>
+                    <th>Delete</th>
                 </tr>
                 <tr th:each="book : ${books}">
                     <td th:text="${book.id}"></td>
@@ -51,6 +51,9 @@
                     <td th:text="${book.description}"></td>
                     <td><a th:href="@{/books/edit-book(id=${book.id})}">edit...</a></td>
                     <td><input type="checkbox" th:value="${book.id}" name="selectedItems"/></td>
+                    <td>
+                        <button type="button" th:onclick="'deleteBook(' + ${book.id} + ')'">Delete</button>
+                    </td>
                 </tr>
             </table>
             <button type="submit">Add to Cart</button>
@@ -61,5 +64,22 @@
 <footer>
     <p>&copy; 2024 Simple E-Commerce. All rights reserved.</p>
 </footer>
+
+<script>
+    function deleteBook(bookId) {
+        var form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/books/selection';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'selectedItems';
+        input.value = bookId;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 </body>
 </html>

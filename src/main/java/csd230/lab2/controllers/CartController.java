@@ -5,12 +5,14 @@ import csd230.lab2.entities.CartItem;
 import csd230.lab2.repositories.CartItemRepository;
 import csd230.lab2.repositories.CartRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -18,7 +20,8 @@ import java.util.stream.Collectors;
 public class CartController {
 
     private final CartItemRepository cartItemRepository;
-    CartRepository cartRepository;
+    private final CartRepository cartRepository;
+
     public CartController(CartRepository cartRepository, CartItemRepository cartItemRepository) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
@@ -44,9 +47,7 @@ public class CartController {
 
     @PostMapping("/add-cart")
     public String cartSubmit(@RequestParam("selectedItems") List<Long> selectedItemIds, Model model) {
-        // Process the selected items and add them to the cart
         for (Long id : selectedItemIds) {
-            // Assuming you have a method to find items by ID and add them to the cart
             CartItem item = cartItemRepository.findById(id).orElse(null);
             if (item != null) {
                 Cart cart = cartRepository.findById(1L); // Assuming a single cart for simplicity
@@ -58,32 +59,19 @@ public class CartController {
     }
 
     @PostMapping("/remove-cart")
-    public String remove_cartSubmit(@RequestParam(value = "cartItemId", required = false) Long id, Model model) {
-        // Process the selected items and add them to the cart
-        CartItem item = cartItemRepository.findById(id).orElse(null);
-        if (item != null) {
-            Cart cart = cartRepository.findById(1L);
-            cart.removeItem(item);
-            cartRepository.save(cart);
-        }
+    public String removeItemFromCart(@RequestParam("cartItemId") Long cartItemId) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElse(null);
+        cartItem.setCart(null);
+        cartItemRepository.save(cartItem);
         return "redirect:/cart";
     }
 
-    // CartController.java
     @PostMapping("/selection")
     public String processSelection(@RequestParam("selectedCarts") List<Integer> selectedCartIds) {
-        // Process the selected cart list here...
-        System.out.println(selectedCartIds);
         for (Integer id : selectedCartIds) {
             Cart cart = cartRepository.findById(id);
             cartRepository.delete(cart);
         }
-
         return "redirect:/cart";
     }
-
-
-
-
-
 }

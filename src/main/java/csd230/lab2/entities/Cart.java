@@ -41,7 +41,10 @@ public class Cart {
     }
 
     public void removeItem(CartItem item) {
-        items.remove(item);
+        item.setCart(null);
+        item.setId(null);
+        this.items.remove(item);
+
     }
 
     public Long getId() {

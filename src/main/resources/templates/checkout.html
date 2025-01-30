@@ -26,7 +26,23 @@
 <main>
   <h2>Checkout</h2>
   <div>
-      <p>Total Price: $<span th:text="${checkoutTotal}">0.00</span></p>
+    <table border="1" cellpadding="5" cellspacing="0">
+      <thead>
+      <tr>
+        <th>Description</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item : ${cart.items}">
+        <td th:text="${item.description}">Description</td>
+        <td>$<span th:text="${item.price}">0.00</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <p>Total Price: $<span th:text="${checkoutTotal}">0.00</span></p>
   </div>
 
   <a href="/cart">Back to Cart</a>

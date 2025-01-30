@@ -54,7 +54,7 @@ public class BookController {
 
     // BookController.java
     @PostMapping("/selection")
-    public String processSelection(@RequestParam("selectedBooks") List<Integer> selectedBookIds) {
+    public String processSelection(@RequestParam("selectedItems") List<Integer> selectedBookIds) {
         // Process the selected book list here...
         System.out.println(selectedBookIds);
         for (Integer id : selectedBookIds) {

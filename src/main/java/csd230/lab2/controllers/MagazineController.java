@@ -53,7 +53,7 @@ public class MagazineController {
     }
 
     @PostMapping("/selection")
-    public String processSelection(@RequestParam("selectedMagazines") List<Integer> selectedMagazineIds) {
+    public String processSelection(@RequestParam("selectedItems") List<Integer> selectedMagazineIds) {
         System.out.println(selectedMagazineIds);
         for (Integer id : selectedMagazineIds) {
             Magazine magazine = magazineRepository.findById(id);

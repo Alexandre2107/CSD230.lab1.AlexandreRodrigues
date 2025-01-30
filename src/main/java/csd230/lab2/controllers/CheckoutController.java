@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DecimalFormat;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/checkout")
@@ -40,6 +44,7 @@ public class CheckoutController {
         Cart cart = cartRepository.findById(1L);
         Set<CartItem> items = cart.getItems();
 
+
         double checkoutTotal = 0.0;
         for (CartItem item : items) {
             checkoutTotal += item.getPrice();
@@ -48,7 +53,15 @@ public class CheckoutController {
         DecimalFormat df = new DecimalFormat("#.00");
         model.addAttribute("checkoutTotal", df.format(checkoutTotal));
 
+        List<CartItem> sortedItems = cart.getItems().stream()
+                .sorted(Comparator.comparing(CartItem::getId))
+                .collect(Collectors.toList());
+        cart.setItems(new LinkedHashSet<>(sortedItems));
+        model.addAttribute("cart", cart);
+
         return "checkout";
     }
+
+
 
 }

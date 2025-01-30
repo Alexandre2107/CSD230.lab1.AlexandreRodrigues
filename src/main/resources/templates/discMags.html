@@ -41,6 +41,7 @@
                     <th>Has disc?</th>
                     <th>Edit</th>
                     <th>Select</th>
+                    <th>Delete</th>
                 </tr>
                 <tr th:each="discMag : ${discMags}">
                     <td th:text="${discMag.id}"></td>
@@ -50,6 +51,9 @@
                     <td th:text="${discMag.hasDisc}"></td>
                     <td><a th:href="@{/discMags/edit-disc-mag(id=${discMag.id})}">edit...</a></td>
                     <td><input type="checkbox" th:value="${discMag.id}" name="selectedItems"/></td>
+                    <td>
+                        <button type="button" th:onclick="'deletediscMag(' + ${discMag.id} + ')'">Delete</button>
+                    </td>
                 </tr>
             </table>
             <button type="submit">Add to Cart</button>
@@ -60,5 +64,22 @@
 <footer>
     <p>&copy; 2024 Simple E-Commerce. All rights reserved.</p>
 </footer>
+
+<script>
+    function deletediscMag(bookId) {
+        var form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/discMags/selection';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'selectedItems';
+        input.value = bookId;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 </body>
 </html>

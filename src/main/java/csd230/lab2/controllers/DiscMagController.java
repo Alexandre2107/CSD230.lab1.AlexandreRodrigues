@@ -56,7 +56,7 @@ public class DiscMagController {
     }
 
     @PostMapping("/selection")
-    public String processSelection(@RequestParam("selectedDiscMags") List<Integer> selectedDiscMagIds) {
+    public String processSelection(@RequestParam("selectedItems") List<Integer> selectedDiscMagIds) {
         System.out.println(selectedDiscMagIds);
         for (Integer id : selectedDiscMagIds) {
             DiscMag discMag = discMagRepository.findById(id);
